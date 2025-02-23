@@ -1,4 +1,4 @@
-# Honeypot Cowrie
+# Honeypot [Cowrie](http://github.com/cowrie/cowrie)🍯
 
 Proyecto personal basado en la autoría de Cody Gula.
 
@@ -24,4 +24,51 @@ Luego reiniciamos el servicio para aplicar el cambio.
 
 ```
 sudo systemctl restart ssh
+```
+
+Corroboramos el cambio.
+
+```
+sudo systemctl status ssh
+```
+
+![Comprobar_puerto](/1_Honeypot_Cowrie/images/2.png)
+
+Cuando cerremos sesión y queramos conectarnos por SSH entonces lo hacemos con el siguiente comando.
+
+```
+ssh -i "keypair.pem" admin@public_ip -p 9922
+```
+
+## 3. Instalar Cowrie
+
+En primer lugar actualizamos Debian e instalamos algunas dependencias necesarias para Cowrie. En caso que nos pregunte por el archivo de configuración sshd_config, mantendremos la la versión local modificada.
+
+```
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt update -y
+sudo apt-get install lnav git python3-virtualenv libssl-dev libffi-dev build-essential libpython3-dev authbind -y
+```
+
+Luego crearemos un nuevo usuario. Nos solicitará algunas opciones pero podemos dejarlas en blanco.
+
+```
+sudo adduser --disabled-password cowrie
+sudo su - cowrie
+```
+
+Clonamos el repositorio oficial y creamos un entorno virtual utilizando virtualenv para ejecutar python en un entorno aislado.
+
+```
+git clone http://github.com/cowrie/cowrie
+cd cowrie
+virtualenv cowrie-env
+source cowrie-env/bin/activate
+```
+
+Y procedemos a realizar la instalación.
+
+```
+pip install --upgrade pip
+pip install --upgrade -r requirements.txt
 ```
