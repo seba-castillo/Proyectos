@@ -18,7 +18,7 @@ ssh -i "keypair.pem" admin@public_ip
 
 Editamos el archivo de configuración ubicado en "/etc/ssh/sshd_config". Descomentamos la línea que nos indica el puerto y la cambiamos por ejemplo a 9922.
 
-![Cambio_puerto](/1_Honeypot_Cowrie/images/1.png)
+![Cambio_puerto](/Honeypot_Cowrie/images/1.png)
 
 Luego reiniciamos el servicio para aplicar el cambio.
 
@@ -32,7 +32,7 @@ Corroboramos el cambio.
 sudo systemctl status ssh
 ```
 
-![Comprobar_puerto](/1_Honeypot_Cowrie/images/2.png)
+![Comprobar_puerto](/Honeypot_Cowrie/images/2.png)
 
 Cuando cerremos sesión y queramos conectarnos por SSH entonces lo hacemos con el siguiente comando.
 
@@ -72,3 +72,22 @@ Y procedemos a realizar la instalación.
 pip install --upgrade pip
 pip install --upgrade -r requirements.txt
 ```
+
+## 4. Configurar Cowrie
+
+Ahora cambiaremos el hostname a uno distinto del predeterminado para no evidenciar tan facilmente que es un honeypot, trataremos de utilizar algun nombre mas tentador. Para esto creamos un archivo llamado "cowrie.cfg" y copiaremos el archivo "cowrie.cfg.dist" en él.
+
+```
+cd etc
+cp cowrie.cfg.dist cowrie.cfg
+```
+
+![Cambiar_hostname](/Honeypot_Cowrie/images/3.png)
+
+Luego procedemos a salir del entorno virtual.
+
+```
+exit
+```
+
+Ahora
