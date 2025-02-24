@@ -129,6 +129,8 @@ Finalmente, para probar por nuestra parte, probamos la conexión.
 ssh root@public_ip
 ```
 
+###### Corroborar reglas de firewall en caso de error de conexión.
+
 ## Material referencia
 
 - [Documentación oficial](https://docs.cowrie.org/en/latest/INSTALL.html)
