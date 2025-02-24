@@ -1,10 +1,10 @@
 # Honeypot [Cowrie](http://github.com/cowrie/cowrie)🍯
 
-Proyecto personal basado en la autoría de Cody Gula.
+\*Proyecto personal basado en la documentación oficial y Cody Gula.
 
 ## 1. Crear máquina virtual en AWS
 
-Creamos una VM en [Amazon EC2](https://aws.amazon.com/es/ec2/) utilizando una imagen Debian 12 del tipo t2.micro apta para la capa gratuita, además permitimos el tráfico SSH desde nuestra IP para configurar la máquina.
+Creamos una VM en [Amazon EC2](https://aws.amazon.com/es/ec2/) utilizando una imagen Debian 12 del tipo t2.micro apta para la capa gratuita, además permitimos el tráfico SSH desde nuestra IP para configurar la máquina. Además debemos agregar otro puerto TCP adicional que posteriormente utilizaremos, por ejemplo el puerto TCP 9922.
 
 ## 2. Cambiar puerto SSH
 
@@ -90,4 +90,43 @@ Luego procedemos a salir del entorno virtual.
 exit
 ```
 
-Ahora
+A continuación debemos redirigir el tráfico TCP del puerto 22 al puerto 2222, el cual es el utilizado por Cowrie para emular el cliente SSH falso.
+
+```
+sudo iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 2222
+```
+
+## 5. Ejecutar Cowrie y observar Logs
+
+Para ejecutar Cowrie volvemos al usuario creado previamente y ejecutamos.
+
+```
+sudo su - cowrie
+cd ~/cowrie/bin
+./cowrie start
+#./cowrie stop para detener
+```
+
+Para observar los registros podemos usar "lnav" con el archivo cowrie.log.
+
+```
+cd var/log/cowrie
+lnav cowrie.log
+```
+
+![Logs](/Honeypot_Cowrie/images/4.png)
+
+A continuación debemos actualizar la regla de firewall para nuestra máquina virtual que nos permitía solo a nosotros conectarnos al puerto 22. Debemos permitir que todo internet se conecte.
+
+## 6. Conexión de prueba
+
+Finalmente, para probar por nuestra parte, probamos la conexión.
+
+```
+ssh root@public_ip
+```
+
+## Material referencia
+
+- [Documentación oficial](https://docs.cowrie.org/en/latest/INSTALL.html)
+- [Cody Gula](https://www.codygula.com/posts/setting-up-a-cowrie-ssh-honeypot-on-aws/)
