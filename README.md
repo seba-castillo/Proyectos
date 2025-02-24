@@ -1,5 +1,5 @@
 # Proyectos
 
-Proyectos prácticos de Ciberseguridad.
+Proyectos para practicar en ciberseguridad.
 
-- 1_Honeypot_Cowrie: Configurar honeypot Cowrie en AWS.
+- Honeypot_Cowrie: Configurar honeypot Cowrie en AWS.

@@ -1,6 +1,8 @@
 # Honeypot [Cowrie](http://github.com/cowrie/cowrie)🍯
 
-\*Proyecto personal basado en la documentación oficial y Cody Gula.
+Proyecto en que se configura honeypot Cowrie en una instancia en AWS para estudio de comportamiento malicioso.
+
+###### Basado en la documentación oficial y Cody Gula.
 
 ## 1. Crear máquina virtual en AWS
 
@@ -105,6 +107,7 @@ sudo su - cowrie
 cd ~/cowrie/bin
 ./cowrie start
 #./cowrie stop para detener
+#./cowrie status para ver status
 ```
 
 Para observar los registros podemos usar "lnav" con el archivo cowrie.log.
